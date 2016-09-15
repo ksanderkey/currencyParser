@@ -2,6 +2,7 @@
 
 use App\App;
 use App\Viewer\Viewer;
+use App\Cache\CacheProvider\FilesystemCache;
 
 /**
  * @var ClassLoader $loader
@@ -9,23 +10,7 @@ use App\Viewer\Viewer;
 $loader = require __DIR__.'/../vendor/autoload.php';
 
 $viewer = new Viewer();
+$cache = new FilesystemCache();
 
-$app = new App($viewer);
+$app = new App($viewer, $cache);
 $app->run();
-
-
-//$cache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-//
-//$latestNews = $cache->getItem('latest_news');
-//$latestNews->expiresAfter(600);
-//
-//if (!$latestNews->isHit()) {
-//    // do some heavy computation
-//    $news = "SUPADUPA";
-//    $cache->save($latestNews->set($news));
-//} else {
-//    $news = $latestNews->get();
-//}
-//
-//var_dump($cache);die;
-//var_dump($news);die;
