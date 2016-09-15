@@ -15,7 +15,7 @@ class CacheItem implements CacheItemInterface
      * @param $key
      * @param $value
      */
-    public function __construct($key, $value)
+    public function __construct($key, $value = null)
     {
         $this->key = $key;
         if (null !== $value) {
@@ -40,11 +40,19 @@ class CacheItem implements CacheItemInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getExpiration()
+    {
+        return $this->expiration;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function isHit()
     {
-        return $this->isHit;
+        return (null !== $this->value);
     }
 
     /**

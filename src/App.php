@@ -38,23 +38,16 @@ class App
     {
         $template = __DIR__ . DIRECTORY_SEPARATOR . "Resources/views/base.html.php";
 
-        //$cache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter();
-//        $this->cache;
+        $latestCurrency = $this->cache->getItem('latest_currency');
+        if (!$latestCurrency->isHit()) {
+//            // do some heavy computation
+            $news = "SUPADUPA@";
+            $latestCurrency->expiresAfter(600);
+            $this->cache->save($latestCurrency->set($news));
+        } else {
+            $news = $latestCurrency->get();
+        }
 
-        //$latestNews = $cache->getItem('latest_news');
-        //$latestNews->expiresAfter(600);
-        //
-        //if (!$latestNews->isHit()) {
-        //    // do some heavy computation
-        //    $news = "SUPADUPA";
-        //    $cache->save($latestNews->set($news));
-        //} else {
-        //    $news = $latestNews->get();
-        //}
-        //
-        //var_dump($cache);die;
-        //var_dump($news);die;
-
-        echo $this->viewer->render($template, ['testVar' => "Jack"]);
+        echo $this->viewer->render($template, ['testVar' => $news]);
     }
 }
