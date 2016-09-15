@@ -1,6 +1,6 @@
 <?php
 
-namespace CliCrawler\Viewer;
+namespace App\Viewer;
 
 /**
  * Interface ViewerInterface

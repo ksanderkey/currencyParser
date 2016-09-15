@@ -1,6 +1,6 @@
 <?php
 
-namespace CliCrawler\Cache;
+namespace App\Cache;
 
 class CacheItemPool
 {
