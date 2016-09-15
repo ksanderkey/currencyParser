@@ -6,13 +6,12 @@ class CacheItemPool implements CacheItemPoolInterface
 {
     public function getItem($key)
     {
-
         $item = new CacheItem();
         $item->setKey($key);
-        $item->setPool($this);
-
-        $item->value = $value;
-        $item->isHit = $isHit;
+//        $item->setPool($this);
+//
+//        $item->value = $value;
+//        $item->isHit = $isHit;
 
         return $item;
     }

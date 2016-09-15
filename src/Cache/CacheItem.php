@@ -7,10 +7,21 @@ class CacheItem implements CacheItemInterface
     protected $key;
     protected $value;
     protected $isHit;
-    protected $expiry;
-    protected $defaultLifetime;
-    protected $innerItem;
-    protected $poolHash;
+    protected $expiration;
+
+    /**
+     * CacheItem constructor.
+     *
+     * @param $key
+     * @param $value
+     */
+    public function __construct($key, $value)
+    {
+        $this->key = $key;
+        if (null !== $value) {
+            $this->value = $value;
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -51,12 +62,12 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAfter($time)
     {
-        if (null === $time) {
-            $this->expiry = $time;
-        } elseif ($time instanceof \DateInterval) {
-            $this->expiry = (int) \DateTime::createFromFormat('U', time())->add($time)->format('U');
+        if ($time instanceof \DateInterval) {
+            $this->expiration = (int)\DateTime::createFromFormat('U', time())->add($time)->format('U');
         } elseif (is_int($time)) {
-            $this->expiry = $time + time();
+            $this->expiration = $time + time();
+        } else {
+            $this->expiration = null;
         }
 
         return $this;
