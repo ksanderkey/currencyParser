@@ -48,6 +48,12 @@ class App
             $news = $latestCurrency->get();
         }
 
-        echo $this->viewer->render($template, ['testVar' => $news]);
+        $currency = ['Oil' => '123',
+            'Bitcoin' => '321',
+            'Euro' => '28',
+            'Dollar' => '25',
+        ];
+
+        echo $this->viewer->render($template, ['currency' => $currency]);
     }
 }

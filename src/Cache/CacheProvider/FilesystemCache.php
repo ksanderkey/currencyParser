@@ -8,7 +8,9 @@ use App\Cache\CacheItemPool;
 use App\Cache\CacheItemPoolInterface;
 use App\Cache\InvalidArgumentException;
 
-
+/**
+ * Class FilesystemCache
+ */
 class FilesystemCache implements CacheItemPoolInterface
 {
     /**
@@ -34,11 +36,17 @@ class FilesystemCache implements CacheItemPoolInterface
         $this->directory = realpath($dir) . DIRECTORY_SEPARATOR;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasItem($key)
     {
         return $this->getItem($key)->isHit();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function save(CacheItemInterface $item)
     {
         $expiresAt = $item->getExpiration() ?: 86400; // 86400s = 1 day
@@ -53,6 +61,22 @@ class FilesystemCache implements CacheItemPoolInterface
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getItem($key)
+    {
+        $item = new CacheItem($key);
+        $value = $this->extract($key);
+        $item->set($value);
+
+        return $item;
+    }
+
+    /**
+     * @param $key
+     * @return mixed|null
+     */
     protected function extract($key) {
         $value = null;
         $file = $this->getCacheFile($key);
@@ -70,15 +94,10 @@ class FilesystemCache implements CacheItemPoolInterface
         return $value;
     }
 
-    public function getItem($key)
-    {
-        $item = new CacheItem($key);
-        $value = $this->extract($key);
-        $item->set($value);
-
-        return $item;
-    }
-
+    /**
+     * @param $key
+     * @return string
+     */
     private function getCacheFile($key)
     {
         return $this->directory . md5($key);

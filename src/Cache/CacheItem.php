@@ -2,6 +2,9 @@
 
 namespace App\Cache;
 
+/**
+ * Class CacheItem
+ */
 class CacheItem implements CacheItemInterface
 {
     protected $key;
