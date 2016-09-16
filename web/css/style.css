@@ -113,7 +113,7 @@
 }
 
 /* Main Styles */
-#currency-dushboard {
+#currency-dashboard {
   margin: 50px auto;
   width: 50%;
 }
@@ -147,7 +147,7 @@
 
 /* Media */
 @media only screen  and (max-width : 510px) {
-  #currency-dushboard {
+  #currency-dashboard {
     min-width: 300px;
     width: 100%;
   }
