@@ -1,3 +1,7 @@
 Steps:
 1) composer dump-autoload
 2) php -S localhost:8000 -t web web/index.php
+2.1) server root dir configuration(e.g. apache):
+    DocumentRoot /var/www/project/web
+NOT
+    DocumentRoot /var/www/project

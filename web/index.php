@@ -16,8 +16,10 @@ use App\ContentFetcher\CurlContentFetcher;
  */
 $loader = require __DIR__.'/../vendor/autoload.php';
 
+$webRoot = __DIR__;
+$cacheDir = $webRoot . DIRECTORY_SEPARATOR . 'currency-cache';
 $viewer = new Viewer();
-$cache = new FilesystemCache();
+$cache = new FilesystemCache($cacheDir);
 $fetcher = new CurlContentFetcher();
 
 $app = new App($viewer, $cache, $fetcher);
